@@ -1,11 +1,11 @@
 node('maven') {
 stage 'buildInDevelopment'
-openshiftBuild(namespace: 'development', buildConfig: 'myapp', showBuildLogs: 'true')
+openshiftBuild(namespace: 'development-user3', buildConfig: 'mynodeapp-user3', showBuildLogs: 'true')
 stage 'deployInDevelopment'
-openshiftDeploy(namespace: 'development', deploymentConfig: 'myapp')
-openshiftScale(namespace: 'development', deploymentConfig: 'myapp',replicaCount: '2')
+openshiftDeploy(namespace: 'development-user3', deploymentConfig: 'mynodeapp-user3')
+openshiftScale(namespace: 'development-user3', deploymentConfig: 'mynodeapp-user3',replicaCount: '2')
 stage 'deployInTesting'
-openshiftTag(namespace: 'development', sourceStream: 'myapp',  sourceTag: 'latest', destinationStream: 'myapp', destinationTag: 'promoteToQA')
+openshiftTag(namespace: 'development-user3', sourceStream: 'myapp',  sourceTag: 'latest', destinationStream: 'mynodeapp-user3', destinationTag: 'promoteToQA')
 openshiftDeploy(namespace: 'testing', deploymentConfig: 'myapp', )
 openshiftScale(namespace: 'testing', deploymentConfig: 'myapp',replicaCount: '3')
 }
